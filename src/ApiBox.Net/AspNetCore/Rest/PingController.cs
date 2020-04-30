@@ -11,18 +11,18 @@ namespace ApiBox.Net.AspNetCore.Rest
     public class PingController : ControllerBase
     {
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PingResponse>>> Pongs ([FromServices] IPingPong pingPong)
+        public async Task<ActionResult<IEnumerable<Pong>>> Pongs ([FromServices] IPingPong pingPong)
         {
             var query = await pingPong.GetAsync();
             var result = query.ToArray();
 
-            return Ok(result.Select(_ => new PingResponse(_)));
+            return Ok(result);
         }
 
         [HttpPost]
-        public async Task<ActionResult<PingResponse>> Ping (string message, [FromServices] IPingPong pingPong) {
+        public async Task<ActionResult<Pong>> Ping (string message, [FromServices] IPingPong pingPong) {
             var pong = await pingPong.PingAsync(new Ping(message));
-            return Ok(new PingResponse(pong));
+            return Ok(pong);
         }
     }
 }
