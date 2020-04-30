@@ -5,6 +5,6 @@ namespace ApiBox.PingPong
 {
     public interface IPingPong
     {
-        Task<Pong> PingAsync(Ping ping, TimeSpan? delay);
+        Task<Pong> PingAsync(Ping ping, TimeSpan? delay = null);
     }
 }
