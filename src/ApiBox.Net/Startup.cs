@@ -1,4 +1,7 @@
+using ApiBox.Net.AspNetCore.OData;
 using ApiBox.Net.AspNetCore.Rest;
+using Microsoft.AspNet.OData.Builder;
+using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +18,7 @@ namespace ApiBox.Net
         {
             services.AddPingPong();
             services.AddRest();
+            services.AddOData();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -29,9 +33,12 @@ namespace ApiBox.Net
 
             app.UseRouting();
 
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRest();
+                endpoints.MapOData(app.ApplicationServices);
+                
             });
         }
     }

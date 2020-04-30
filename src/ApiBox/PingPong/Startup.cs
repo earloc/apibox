@@ -6,7 +6,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddPingPong(this IServiceCollection services)
         {
-            services.AddScoped<IPingPong, InMemoryPingPong>();
+            services.AddSingleton<IPingPong, InMemoryPingPong>();
             return services;
         }
     }
