@@ -5,7 +5,7 @@ namespace ApiBox.PingPong
 {
     public class InMemoryPingPong : IPingPong
     {
-        public async Task<Pong> PingAsync(Ping ping, TimeSpan? delay)
+        public async Task<Pong> PingAsync(Ping ping, TimeSpan? delay  = null)
         {
             if (delay.HasValue)
             {

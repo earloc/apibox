@@ -1,6 +1,5 @@
 ﻿using ApiBox.PingPong;
 using System;
-using System.Threading.Tasks;
 
 namespace ApiBox.Net.AspNetCore.Rest
 {

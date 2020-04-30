@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using ApiBox.Net.AspNetCore.Rest;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
