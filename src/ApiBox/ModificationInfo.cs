@@ -2,7 +2,7 @@
 
 namespace ApiBox
 {
-    public class MutationInfo
+    public class ModificationInfo
     {
         public DateTimeOffset At { get; set; } = DateTimeOffset.Now;
     }

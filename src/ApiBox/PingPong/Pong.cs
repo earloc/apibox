@@ -5,7 +5,6 @@ namespace ApiBox.PingPong
 {
     public class Pong
     {
-
         public Pong(Ping ping)
         {
             Id = Guid.NewGuid().ToString();
@@ -17,7 +16,7 @@ namespace ApiBox.PingPong
 
         public string Message { get; }
 
-        public MutationInfo Created { get; set; } = new MutationInfo();
+        public ModificationInfo Created { get; set; } = new ModificationInfo();
 
     }
 }
