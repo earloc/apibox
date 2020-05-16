@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ApiBox.Net.StarWars.WebApi
 {
     [ControllerName("StarWars")]
-    [Route("api/StarWars/Persons")]
+    [Route("api/Persons")]
     [ApiController]
     public class PersonController : ControllerBase
     {

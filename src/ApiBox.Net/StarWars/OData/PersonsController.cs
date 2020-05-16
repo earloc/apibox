@@ -8,7 +8,7 @@ namespace ApiBox.Net.StarWars.OData
 {
 
     [ControllerName("StarWars")]
-    [Route("odata/StarWars/Persons")]
+    [Route("odata/Persons")]
     [ApiExplorerSettings(IgnoreApi = false)]
     public class PersonsController : ODataController
     {

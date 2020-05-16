@@ -8,9 +8,9 @@ namespace ApiBox.PingPong
 {
     public class InMemoryPingPongStore : IPingPongStore
     {
-        private static readonly Lazy<IDictionary<string, Pong>> pongs = new Lazy<IDictionary<string, Pong>>(() => Seed(100), LazyThreadSafetyMode.ExecutionAndPublication);
+        private static readonly Lazy<IDictionary<string, Pong>> pongs = new Lazy<IDictionary<string, Pong>>(() => Seed(10000), LazyThreadSafetyMode.ExecutionAndPublication);
 
-        private static IDictionary<string, Pong> Seed(int count = 1000000)
+        private static IDictionary<string, Pong> Seed(int count)
         {
             var start = DateTimeOffset.Now;
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ApiBox.Net.PingPong.WebApi
 {
     [ControllerName("PingPong")]
-    [Route("api/PingPong")]
+    [Route("api")]
     [ApiController]
     public class PingPongController : ControllerBase
     {

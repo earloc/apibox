@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ApiBox.Net.PingPong.OData
 {
     [ControllerName("PingPong")]
-    [Route("odata/PingPong/Pongs")]
+    [Route("odata/Pongs")]
     [ApiExplorerSettings(IgnoreApi = false)]
     public class PongsController : ODataController
     {
