@@ -1,21 +1,62 @@
 ﻿using MathNet.Numerics.Statistics;
-using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.Hosting;
+using Serilog;
 using System;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ApiBox.Net.Tests
 {
-    public class ApiBoxFixture
+    public class ApiBoxFixture : IDisposable
     {
-        protected readonly HttpClient api;
+        protected readonly HttpClient client;
+        private readonly IHost host;
+        private readonly TestServer server;
         public ApiBoxFixture()
         {
-            var factory = new WebApplicationFactory<Startup>();
-            api = factory.CreateClient();
+            var builder = new HostBuilder()
+                .ConfigureWebHostDefaults(webHost => webHost
+                    .UseTestServer()
+                    .UseStartup<Startup>()
+                )
+                .UseSerilog();
+
+            host = builder.Start();
+            server = host.GetTestServer();
+
+            // Need to set the response version to 2.0.
+            // Required because of this TestServer issue - https://github.com/aspnet/AspNetCore/issues/16940
+            var responseVersionHandler = new ResponseVersionHandler();
+            responseVersionHandler.InnerHandler = server.CreateHandler();
+
+            var testClient = new HttpClient(responseVersionHandler);
+            testClient.BaseAddress = new Uri("http://localhost");
+
+            this.client = testClient;
+        }
+
+        public void Dispose()
+        {
+            client.Dispose();
+            host.Dispose();
+            server.Dispose();
+        }
+
+        private class ResponseVersionHandler : DelegatingHandler
+        {
+            protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+            {
+                var response = await base.SendAsync(request, cancellationToken);
+                response.Version = request.Version;
+
+                return response;
+            }
         }
 
         public async Task MeasureAsync(Func<Task<Func<Task>>> sut, ApiStack apiStack, int sampleCount, [CallerMemberName] string testName = null)

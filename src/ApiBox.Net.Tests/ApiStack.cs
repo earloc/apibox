@@ -4,7 +4,8 @@
     {
         WebApi,
         OData,
-        GQLnet_TypesFirst
+        GQLnet_TypesFirst,
+        GRPC
 
     }
 }

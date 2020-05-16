@@ -1,4 +1,4 @@
-﻿using ApiBox.Net.TimeAnnouncement.OData;
+﻿using ApiBox.Net.Greeter.OData;
 using Microsoft.AspNet.OData.Builder;
 using Microsoft.AspNet.OData.Extensions;
 
@@ -6,14 +6,14 @@ namespace Microsoft.AspNetCore.Routing
 {
     public static partial class IEndpointRouteBuilderExtensions
     {
-        public static void MapTimeAnnouncerODataRoute(this IEndpointRouteBuilder routes)
+        public static void MapGreeterODataRoute(this IEndpointRouteBuilder endpoints)
         {
             var builder = new ODataConventionModelBuilder();
-            builder.EntitySet<TimeEntity>("Announcements").EntityType
-               .HasKey(_ => _.Value)
+            builder.EntitySet<GreetingEntity>("Greetings").EntityType
+               .HasKey(_ => _.Message)
                .Select().Count();
 
-            routes.MapODataRoute("time", "time", builder.GetEdmModel());
+            endpoints.MapODataRoute("greetings", "odata", builder.GetEdmModel());
         }
     }
 }

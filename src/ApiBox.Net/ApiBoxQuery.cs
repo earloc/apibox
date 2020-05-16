@@ -1,5 +1,6 @@
 ﻿using ApiBox.Net.PingPong.GraphQL.GraphTypeFirst;
 using ApiBox.Net.StarWars.GraphQL.GraphTypeFirst;
+using ApiBox.Net.Greeter.GraphQL.GraphTypeFirst;
 using GraphQL.Types;
 
 namespace ApiBox.Net
@@ -12,7 +13,7 @@ namespace ApiBox.Net
 
             Field<PingPongQuery>("pingpong", resolve: context => new { });
             Field<StarWarsQuery>("starwars", resolve: context => new { });
-            Field<TimeAnnouncementQuery>("timeannouncements", resolve: context => new { });
+            Field<GreeterQuery>("greeter", resolve: context => new { });
         }
     }
 }

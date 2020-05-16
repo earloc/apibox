@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiBox.Net", "ApiBox.Net\Ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiBox", "ApiBox\ApiBox.csproj", "{832E5AE1-EBEF-471D-9861-1E68625C8744}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiBox.Net.Tests", "ApiBox.Net.Tests\ApiBox.Net.Tests.csproj", "{30768E3D-DB64-4DF0-9C08-6D6F8AB14208}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiBox.Net.Tests", "ApiBox.Net.Tests\ApiBox.Net.Tests.csproj", "{30768E3D-DB64-4DF0-9C08-6D6F8AB14208}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace ApiBox.Net.PingPong.WebApi
 {
-    [Route("api/[controller]")]
+    [ControllerName("PingPong")]
+    [Route("api/PingPong")]
     [ApiController]
-    public class PingController : ControllerBase
+    public class PingPongController : ControllerBase
     {
-        [HttpGet("All")]
+        [HttpGet("pongs")]
         public async Task<ActionResult<IEnumerable<PongResponse>>> GetAll([FromServices] IPingPongStore pingPong)
         {
             var query = await pingPong.GetAsync();
@@ -19,7 +20,7 @@ namespace ApiBox.Net.PingPong.WebApi
             return Ok(PongResponse.MapFrom(result));
         }
 
-        [HttpPost]
+        [HttpPost("ping")]
         public async Task<ActionResult<PongResponse>> InsertSingle(string message, [FromServices] IPingPongStore pingPong)
         {
             var result = await pingPong.InsertAsync(new Ping(message));

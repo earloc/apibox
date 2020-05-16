@@ -43,5 +43,15 @@ namespace ApiBox.PingPong
         {
             Task.Run(() => Console.WriteLine(pongs.Value.Count()));
         }
+
+        public async Task<Pong?> GetSingleAsync(string id)
+        {
+            await Task.CompletedTask.ConfigureAwait(false);
+
+            if (pongs.Value.ContainsKey(id))
+                return pongs.Value[id];
+
+            return default;
+        }
     }
 }

@@ -3,11 +3,11 @@ using Xunit;
 
 namespace ApiBox.Net.Tests
 {
-    public class TimeAnnouncementTests : IClassFixture<TimeAnnouncementFixture>
+    public class GreeterTests : IClassFixture<GreeterFixture>
     {
-        private readonly TimeAnnouncementFixture fixture;
+        private readonly GreeterFixture fixture;
 
-        public TimeAnnouncementTests(TimeAnnouncementFixture fixture)
+        public GreeterTests(GreeterFixture fixture)
         {
             this.fixture = fixture;
         }
@@ -25,7 +25,11 @@ namespace ApiBox.Net.Tests
         [InlineData(ApiStack.GQLnet_TypesFirst, 1000)]
         [InlineData(ApiStack.GQLnet_TypesFirst, 10000)]
         [InlineData(ApiStack.GQLnet_TypesFirst, 100000)]
-        public async Task Measure_TimeAnnouncement_Sequential(ApiStack apiStack, int numberOfsamples)
+        [InlineData(ApiStack.GRPC, 100)]
+        [InlineData(ApiStack.GRPC, 1000)]
+        [InlineData(ApiStack.GRPC, 10000)]
+        [InlineData(ApiStack.GRPC, 100000)]
+        public async Task Measure_Greetings_Sequential(ApiStack apiStack, int numberOfsamples)
         {
             var action = this.fixture.GetActionFor(apiStack);
             await this.fixture.MeasureAsync(action, apiStack, numberOfsamples).ConfigureAwait(false);

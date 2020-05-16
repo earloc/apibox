@@ -22,10 +22,10 @@ namespace ApiBox.Net.PingPong.OData
             Ping = PingEntity.MapFrom(source.Ping)
         };
 
-        internal static PongEntity? MapFrom(Pong? sources) => sources switch
+        internal static PongEntity? MapFrom(Pong? source) => source switch
         {
             null => null,
-            Pong source => MapCore(source)
+            Pong pong => MapCore(pong)
         };
 
         internal static IEnumerable<PongEntity> MapFrom(IEnumerable<Pong> result) => result

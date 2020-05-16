@@ -1,4 +1,4 @@
-﻿using ApiBox.TimeAnnouncment;
+﻿using ApiBox.Greeter;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -6,7 +6,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddTimeAnnouncement(this IServiceCollection services)
         {
-            services.AddScoped<ITimeAnnouncer, CurrentTimeAnnouncer>();
+            services.AddScoped<IGreeter, StaticGreeter>();
             return services;
         }
     }

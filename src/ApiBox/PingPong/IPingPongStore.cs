@@ -7,5 +7,6 @@ namespace ApiBox.PingPong
     {
         Task<Pong> InsertAsync(Ping ping);
         Task<IEnumerable<Pong>> GetAsync();
+        Task<Pong?> GetSingleAsync(string id);
     }
 }

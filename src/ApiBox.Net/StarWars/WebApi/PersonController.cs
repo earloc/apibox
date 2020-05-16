@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace ApiBox.Net.PingPong.WebApi
 {
-    [Route("api/[controller]")]
+    [Route("api/StarWars/Persons")]
+    [ControllerName("Persons")]
     [ApiController]
     public class PersonController : ControllerBase
     {
-        [HttpGet("All")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<PersonResponse>>> GetAll([FromServices] IStarWarsSource starWars)
         {
             var query = await starWars.GetPersonsAsync();
@@ -20,7 +21,7 @@ namespace ApiBox.Net.PingPong.WebApi
             return Ok(PersonResponse.Map(result));
         }
 
-        [HttpGet("Single/{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<PersonResponse>>> GetSingle(string id, [FromServices] IStarWarsSource starWars)
         {
             var result = await starWars.GetPersonSingleAsync(id);

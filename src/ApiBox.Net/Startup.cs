@@ -2,12 +2,16 @@ using ApiBox.PingPong;
 using GraphQL.Server;
 using GraphQL.Server.Ui.Playground;
 using Microsoft.AspNet.OData.Extensions;
+using Microsoft.AspNet.OData.Formatter;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Net.Http.Headers;
+using Microsoft.OpenApi.Models;
 using Serilog;
+using System.Linq;
 
 namespace ApiBox.Net
 {
@@ -38,8 +42,16 @@ namespace ApiBox.Net
             })
                 .AddSystemTextJson()
                 .AddGraphTypes(typeof(ApiBoxSchema))
-
             ;
+
+            services.AddGrpc();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApiBox.Net", Version = "v1" });
+            });
+
+            SetOutputFormatters(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,34 +63,49 @@ namespace ApiBox.Net
             }
             app.UseSerilogRequestLogging();
 
-            //app.Use(async (context, next) =>
-            //{
-
-            //    using var reader = new StreamReader(context.Request.Body, leaveOpen: true);
-
-            //    var content = await reader.ReadToEndAsync();
-
-
-            //    await next();
-            //});
-
-
             app.UseRouting();
 
-            app.UseEndpoints(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapControllers();
-                routes.MapPingPongODataRoute();
-                routes.MapStarWarsODataRoute();
-                routes.MapTimeAnnouncerODataRoute();
+                endpoints.MapControllers();
+                endpoints.EnableDependencyInjection();
+                endpoints.MapPingPongODataRoute();
+                endpoints.MapStarWarsODataRoute();
+
+                endpoints.MapGreeterGRPCService();
+                endpoints.MapGreeterODataRoute();
+
             });
 
             app.UseGraphQL<ApiBoxSchema>();
 
             app.UseGraphQLPlayground(new GraphQLPlaygroundOptions());
 
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ApiBox.Net V1");
+                c.RoutePrefix = "";
+            });
+
             //hack: warmup PingPong
             InMemoryPingPongStore.BeginWarmup();
+        }
+
+        private static void SetOutputFormatters(IServiceCollection services)
+        {
+            services.AddMvcCore(options =>
+            {
+                var outputFormatters =
+                    options.OutputFormatters.OfType<ODataOutputFormatter>()
+                        .Where(foramtter => foramtter.SupportedMediaTypes.Count == 0);
+
+                foreach (var outputFormatter in outputFormatters)
+                {
+                    outputFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/odata"));
+                }
+            });
         }
     }
 }

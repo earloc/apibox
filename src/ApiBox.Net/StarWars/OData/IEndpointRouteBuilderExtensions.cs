@@ -7,14 +7,14 @@ namespace Microsoft.AspNetCore.Routing
 
     public static partial class IEndpointRouteBuilderExtensions
     {
-        public static void MapStarWarsODataRoute(this IEndpointRouteBuilder routes)
+        public static void MapStarWarsODataRoute(this IEndpointRouteBuilder endpoints)
         {
             var builder = new ODataConventionModelBuilder();
             builder.EntitySet<PersonEntity>("Persons").EntityType
                .HasKey(_ => _.Id)
                .Select().Count();
 
-            routes.MapODataRoute("starwars", "starwars", builder.GetEdmModel());
+            endpoints.MapODataRoute("starwars", "odata", builder.GetEdmModel());
         }
 
     }
