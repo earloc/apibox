@@ -10,7 +10,7 @@ namespace ApiBox.Net.Greeter.GraphQL.GraphTypeFirst
         {
             Field<GreetingOutput>("Greet",
                 arguments: new QueryArguments(
-                    new QueryArgument<StringGraphType>() { Name = "name"}
+                    new QueryArgument<StringGraphType>() { Name = "name" }
                 ),
 
                 resolve: context =>

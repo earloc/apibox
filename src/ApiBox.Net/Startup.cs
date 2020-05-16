@@ -1,6 +1,7 @@
 using ApiBox.PingPong;
 using GraphQL.Server;
 using GraphQL.Server.Ui.Playground;
+using Microsoft.AspNet.OData.Builder;
 using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNet.OData.Formatter;
 using Microsoft.AspNetCore.Builder;
@@ -26,7 +27,7 @@ namespace ApiBox.Net
 
             services.AddPingPong();
             services.AddStarWars();
-            services.AddTimeAnnouncement();
+            services.AddGreeter();
 
             services.AddControllers();
             services.AddOData();
@@ -69,11 +70,15 @@ namespace ApiBox.Net
             {
                 endpoints.MapControllers();
                 endpoints.EnableDependencyInjection();
-                endpoints.MapPingPongODataRoute();
-                endpoints.MapStarWarsODataRoute();
-
                 endpoints.MapGreeterGRPCService();
-                endpoints.MapGreeterODataRoute();
+
+                var builder = new ODataConventionModelBuilder()
+                    .AddPingPong()
+                    .AddStarWars()
+                    .AddGreeter()
+                ;
+
+                endpoints.MapODataRoute("odata", "odata", builder.GetEdmModel());
 
             });
 

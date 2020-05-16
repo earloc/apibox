@@ -4,22 +4,10 @@ using Grpc.Net.Client;
 using System;
 using System.Net.Http;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using static ApiBox.Net.Tests.ApiStack;
 namespace ApiBox.Net.Tests
 {
-
-    public class GraphQlPayload
-    {
-
-        public string operationName { get; set; } = null;
-        public object variables { get; set; } = new object();
-        public string query { get; set; } = null;
-
-        public string ToJson() => JsonSerializer.Serialize(this);
-    }
-
     public class GreeterFixture : ApiBoxFixture
     {
         readonly string webApiUrl = "api/Greeting/greetling";
@@ -82,7 +70,7 @@ namespace ApiBox.Net.Tests
             };
         }
 
-        internal Func<Task<Func<Task>>> GetActionFor(ApiStack apiStack)
+        internal Func<Task<Func<Task>>> GetGreetingActionFor(ApiStack apiStack)
         {
             return apiStack switch
             {

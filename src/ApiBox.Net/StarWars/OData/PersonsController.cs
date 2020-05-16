@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 namespace ApiBox.Net.StarWars.OData
 {
 
-    [Route("odata/StarWars/[controller]")]
+    [ControllerName("StarWars")]
+    [Route("odata/StarWars/Persons")]
     [ApiExplorerSettings(IgnoreApi = false)]
     public class PersonsController : ODataController
     {

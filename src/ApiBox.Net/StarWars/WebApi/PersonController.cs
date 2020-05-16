@@ -1,14 +1,13 @@
-﻿using ApiBox.Net.StarWars.WebApi;
-using ApiBox.StarWars;
+﻿using ApiBox.StarWars;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ApiBox.Net.PingPong.WebApi
+namespace ApiBox.Net.StarWars.WebApi
 {
+    [ControllerName("StarWars")]
     [Route("api/StarWars/Persons")]
-    [ControllerName("Persons")]
     [ApiController]
     public class PersonController : ControllerBase
     {

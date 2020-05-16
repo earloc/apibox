@@ -1,5 +1,4 @@
 ﻿using ApiBox.Greeter;
-using System;
 
 namespace ApiBox.Net.Greeter.WebApi
 {

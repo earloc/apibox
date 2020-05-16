@@ -1,3 +1,4 @@
+using FluentAssertions;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -31,8 +32,11 @@ namespace ApiBox.Net.Tests
         [InlineData(ApiStack.GRPC, 100000)]
         public async Task Measure_Greetings_Sequential(ApiStack apiStack, int numberOfsamples)
         {
-            var action = this.fixture.GetActionFor(apiStack);
-            await this.fixture.MeasureAsync(action, apiStack, numberOfsamples).ConfigureAwait(false);
+            var action = this.fixture.GetGreetingActionFor(apiStack);
+            var samples = await this.fixture.MeasureAsync(action, apiStack, numberOfsamples)
+                .ConfigureAwait(false);
+
+            samples.Should().Be(numberOfsamples);
         }
     }
 }

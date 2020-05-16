@@ -41,13 +41,6 @@ namespace ApiBox.Net.Tests
             this.client = testClient;
         }
 
-        public void Dispose()
-        {
-            client.Dispose();
-            host.Dispose();
-            server.Dispose();
-        }
-
         private class ResponseVersionHandler : DelegatingHandler
         {
             protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
@@ -59,7 +52,7 @@ namespace ApiBox.Net.Tests
             }
         }
 
-        public async Task MeasureAsync(Func<Task<Func<Task>>> sut, ApiStack apiStack, int sampleCount, [CallerMemberName] string testName = null)
+        public async Task<int> MeasureAsync(Func<Task<Func<Task>>> sut, ApiStack apiStack, int sampleCount, [CallerMemberName] string testName = null)
         {
             //warmup
             var warmupAssertion = await sut().ConfigureAwait(false);
@@ -96,6 +89,35 @@ namespace ApiBox.Net.Tests
                 File.AppendAllText(fileName, "{sampleCount};{stack};{min};{max};{p50th};{p90th};{p95th};{median};{total}\n");
 
             File.AppendAllText(fileName, $"{sampleCount};{stack};{min};{max};{p50th};{p90th};{p95th};{median};{total}\n");
+
+            return samples.Length;
         }
+
+        #region IDisposable Support
+
+        private bool disposedValue = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    client.Dispose();
+                    host.Dispose();
+                    server.Dispose();
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+
+            Dispose(true);
+        }
+
+        #endregion
     }
 }

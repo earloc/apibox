@@ -1,5 +1,4 @@
 ﻿using ApiBox.Greeter;
-using ApiBox.Net.Greeter.gRPC;
 using Grpc.Core;
 using System.Threading.Tasks;
 
