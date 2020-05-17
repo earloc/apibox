@@ -1,9 +1,6 @@
 ﻿using ApiBox.Greeter;
 using ApiBox.PingPong;
 using ApiBox.StarWars;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -14,6 +11,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IPingPongStore, InMemoryPingPongStore>();
             services.AddScoped<IGreeter, StaticGreeter>();
             services.AddScoped<IStarWarsSource, InMemoryStarWarsSource>();
+
+            InMemoryPingPongStore.BeginWarmup();
 
             return services;
         }

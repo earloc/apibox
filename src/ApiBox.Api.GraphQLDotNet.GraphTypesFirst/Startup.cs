@@ -15,9 +15,13 @@ namespace ApiBox.Api.GraphQLDotNet
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApiBox();
-            services.AddGraphQL(_ => {
+            services.AddGraphQL(_ =>
+            {
                 _.EnableMetrics = true;
-            });
+            })
+                .AddSystemTextJson()
+                .AddGraphTypes(typeof(ApiBoxSchema))
+            ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
