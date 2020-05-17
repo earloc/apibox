@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ApiBox.Api.OData.Greeter
 {
-    [ControllerName("Greeter")]
     [Route("odata/Greetings")]
     [ApiExplorerSettings(IgnoreApi = false)]
     public class GreetingsController : ODataController

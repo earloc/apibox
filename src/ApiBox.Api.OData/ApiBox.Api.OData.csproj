@@ -10,10 +10,12 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OData" Version="7.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.OData.Versioning" Version="4.1.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ApiBox.Api\ApiBox.Api.csproj" />
+    <ProjectReference Include="..\ApiBox.Microsoft.Extensions.DependencyInjection\ApiBox.Microsoft.Extensions.DependencyInjection.csproj" />
     <ProjectReference Include="..\ApiBox\ApiBox.csproj" />
   </ItemGroup>
 

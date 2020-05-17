@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ApiBox.Api.GraphQLDotNet\ApiBox.Api.GraphQLDotNet.csproj" />
     <ProjectReference Include="..\ApiBox.Api\ApiBox.Api.csproj" />
+    <ProjectReference Include="..\ApiBox.Microsoft.Extensions.DependencyInjection\ApiBox.Microsoft.Extensions.DependencyInjection.csproj" />
     <ProjectReference Include="..\ApiBox\ApiBox.csproj" />
   </ItemGroup>
   

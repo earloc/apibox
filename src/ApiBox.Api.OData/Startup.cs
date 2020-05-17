@@ -1,10 +1,15 @@
+using Microsoft.AspNet.OData.Builder;
+using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNet.OData.Formatter;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Net.Http.Headers;
+using Microsoft.OpenApi.Models;
 using System.Linq;
 
 namespace ApiBox.Api.OData
@@ -15,6 +20,25 @@ namespace ApiBox.Api.OData
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddApiBox();
+
+            services.AddControllers(_ => _.EnableEndpointRouting = false);
+            services.AddApiVersioning(_ =>
+            {
+                _.ReportApiVersions = true;
+                _.DefaultApiVersion = new ApiVersion(1, 0);
+            });
+
+            services.AddOData().EnableApiVersioning();
+
+            services.AddSwaggerGen(swagger =>
+            {
+                swagger.SwaggerDoc("v1", new OpenApiInfo()
+                {
+                    Title = "ApiBox.Api.OData",
+                    Version = "v1"
+                });
+            });
             SetOutputFormatters(services);
         }
 
@@ -28,12 +52,22 @@ namespace ApiBox.Api.OData
 
             app.UseRouting();
 
-            app.UseEndpoints(endpoints =>
+            app.UseMvc(routes =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                var builder = new ODataConventionModelBuilder();
+                builder
+                    .AddPingPong()
+                    .AddGreeter()
+                    .AddStarWars()
+                ;
+
+                routes.MapVersionedODataRoute("odata", "odata", builder.GetEdmModel(), new ApiVersion(1, 0));
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(swagger => {
+                swagger.SwaggerEndpoint("swagger/v1/swagger.json", "ApiBox.APi.OData");
+                swagger.RoutePrefix = "";
             });
         }
 

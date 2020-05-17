@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiBox.Api.Tests", "ApiBox.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RPC", "RPC", "{57D364A5-BDD2-4813-8DF1-E3E4AD785276}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiBox.Microsoft.Extensions.DependencyInjection", "ApiBox.Microsoft.Extensions.DependencyInjection\ApiBox.Microsoft.Extensions.DependencyInjection.csproj", "{BF3C9EF8-53CF-49DE-8CE6-8B799B7D121A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{44113E17-6F79-4041-B417-2C91D1E43D22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44113E17-6F79-4041-B417-2C91D1E43D22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44113E17-6F79-4041-B417-2C91D1E43D22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF3C9EF8-53CF-49DE-8CE6-8B799B7D121A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF3C9EF8-53CF-49DE-8CE6-8B799B7D121A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF3C9EF8-53CF-49DE-8CE6-8B799B7D121A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF3C9EF8-53CF-49DE-8CE6-8B799B7D121A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
