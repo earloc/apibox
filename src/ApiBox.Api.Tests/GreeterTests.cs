@@ -1,40 +1,109 @@
+using ApiBox.Api.gRPC;
 using FluentAssertions;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace ApiBox.Api.Tests
 {
-    public class GreeterTests : IClassFixture<GreeterFixture>
+    public class GreeterTests : IClassFixture<ApiBoxFixture>
     {
-        private readonly GreeterFixture fixture;
+        private readonly ApiBoxFixture fixture;
 
-        public GreeterTests(GreeterFixture fixture)
+        public GreeterTests(ApiBoxFixture fixture)
         {
             this.fixture = fixture;
         }
 
+        private readonly string Measure_Greeter_SayHello_Sequential = nameof(Measure_Greeter_SayHello_Sequential);
+
         [Theory]
-        [InlineData(ApiStack.WebApi, 100)]
-        [InlineData(ApiStack.WebApi, 1000)]
-        [InlineData(ApiStack.WebApi, 10000)]
-        [InlineData(ApiStack.WebApi, 100000)]
-        [InlineData(ApiStack.OData, 100)]
-        [InlineData(ApiStack.OData, 1000)]
-        [InlineData(ApiStack.OData, 10000)]
-        [InlineData(ApiStack.OData, 100000)]
-        [InlineData(ApiStack.GQLnet_TypesFirst, 100)]
-        [InlineData(ApiStack.GQLnet_TypesFirst, 1000)]
-        [InlineData(ApiStack.GQLnet_TypesFirst, 10000)]
-        [InlineData(ApiStack.GQLnet_TypesFirst, 100000)]
-        [InlineData(ApiStack.GRPC, 100)]
-        [InlineData(ApiStack.GRPC, 1000)]
-        [InlineData(ApiStack.GRPC, 10000)]
-        [InlineData(ApiStack.GRPC, 100000)]
-        public async Task Measure_Greetings_Sequential(ApiStack apiStack, int numberOfsamples)
+        [InlineData(100)]
+        [InlineData(1000)]
+        [InlineData(10000)]
+        [InlineData(100000)]
+        [Trait("ApiStack", "OData")]
+        public async Task Measure_Greeter_SayHello_Sequential_OData(int numberOfsamples)
         {
-            var action = this.fixture.GetGreetingActionFor(apiStack);
-            var samples = await this.fixture.MeasureAsync(action, apiStack, numberOfsamples)
-                .ConfigureAwait(false);
+            var sut = this.fixture.OData();
+
+            TestAction act = () => sut.HttpGet("odata/Greetings/greetling?api-version=1.0");
+
+            var samples = await act.MeasureAsync(ApiStack.OData, numberOfsamples, Measure_Greeter_SayHello_Sequential);
+
+            samples.Should().Be(numberOfsamples);
+        }
+
+        [Theory]
+        [InlineData(100)]
+        [InlineData(1000)]
+        [InlineData(10000)]
+        [InlineData(100000)]
+        [Trait("ApiStack", "WebApi")]
+        public async Task Measure_Greeter_SayHello_Sequential_WebApi(int numberOfsamples)
+        {
+            var sut = this.fixture.WebApi();
+
+            TestAction act = () => sut.HttpGet("api/Greeting/greetling");
+
+            var samples = await act.MeasureAsync(ApiStack.WebApi, numberOfsamples, Measure_Greeter_SayHello_Sequential);
+
+            samples.Should().Be(numberOfsamples);
+        }
+
+        [Theory]
+        [InlineData(100)]
+        [InlineData(1000)]
+        [InlineData(10000)]
+        [InlineData(100000)]
+        [Trait("ApiStack", "GraphQLDotNet.GraphTypesFirst")]
+        public async Task Measure_Greeter_SayHello_Sequential_GraphQLDotNet_GraphTypesFirst(int numberOfsamples)
+        {
+            var payload = new GraphQlPayload()
+            {
+                query = @"
+                query {
+                  greeter {
+                    sayHello(name:""greetling""){
+                      content
+                    }
+                  }
+                }"
+            }.ToJson();
+            var content = new StringContent(payload, Encoding.Default, "application/json");
+
+            var sut = this.fixture.GraphQL();
+
+            TestAction act = () => sut.GraphQLPost("graphql", content);
+
+            var samples = await act.MeasureAsync(ApiStack.GQLnet_TypesFirst, numberOfsamples, Measure_Greeter_SayHello_Sequential);
+
+            samples.Should().Be(numberOfsamples);
+        }
+
+        [Theory]
+        [InlineData(100)]
+        [InlineData(1000)]
+        [InlineData(10000)]
+        [InlineData(100000)]
+        [Trait("ApiStack", "gRPC")]
+        public async Task Measure_Greeter_SayHello_Sequential_GRPC(int numberOfsamples)
+        {
+            var sut = this.fixture.gRPC();
+
+            var request = new GreetingRequest()
+            {
+                Name = "greetling"
+            };
+
+            TestAction act = async () =>
+            {
+                var reply = await sut.SayHelloAsync(request);
+                return () => Task.FromResult(reply.Should().NotBeNull());
+            };
+
+            var samples = await act.MeasureAsync(ApiStack.GRPC, numberOfsamples, Measure_Greeter_SayHello_Sequential);
 
             samples.Should().Be(numberOfsamples);
         }

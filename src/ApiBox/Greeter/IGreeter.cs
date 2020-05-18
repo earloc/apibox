@@ -2,6 +2,6 @@
 {
     public interface IGreeter
     {
-        Greeting Greet(string name);
+        Greeting SayHello(string name);
     }
 }

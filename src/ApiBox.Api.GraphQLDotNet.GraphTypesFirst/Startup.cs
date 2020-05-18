@@ -1,12 +1,11 @@
-using ApiBox.Api.GraphQLDotNet.GraphTypesFirst;
 using GraphQL.Server;
+using GraphQL.Types;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace ApiBox.Api.GraphQLDotNet
+namespace ApiBox.Api.GraphQLDotNet.GraphTypesFirst
 {
     public class Startup
     {
@@ -20,8 +19,12 @@ namespace ApiBox.Api.GraphQLDotNet
                 _.EnableMetrics = true;
             })
                 .AddSystemTextJson()
-                .AddGraphTypes(typeof(ApiBoxSchema))
+                .AddGraphTypes(typeof(Startup))
             ;
+
+            services.AddSingleton<ISchema, ApiBoxSchema>();
+            services.AddSingleton(typeof(IDependency<>), typeof(HttpContextDependency<>));
+            services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,8 +37,11 @@ namespace ApiBox.Api.GraphQLDotNet
 
             app.UseRouting();
 
-            app.UseGraphQL<ApiBoxSchema>();
-            app.UseGraphQLPlayground();
+            app.UseGraphQL<ISchema>();
+            app.UseGraphQLPlayground(new GraphQL.Server.Ui.Playground.GraphQLPlaygroundOptions()
+            {
+                Path = ""
+            });
         }
     }
 }

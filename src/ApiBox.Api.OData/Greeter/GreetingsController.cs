@@ -4,15 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ApiBox.Api.OData.Greeter
 {
-    [Route("odata/Greetings")]
-    [ApiExplorerSettings(IgnoreApi = false)]
+    [ApiVersion("1.0")]
     public class GreetingsController : ODataController
     {
-        [HttpGet("{name}")]
-        [EnableQuery]
-        public GreetingEntity? GetSingle(string name, [FromServices]IGreeter greeter)
+        public GreetingEntity? Get(string key, [FromServices]IGreeter greeter)
         {
-            var result = greeter.Greet(name);
+            var result = greeter.SayHello(key);
             return GreetingEntity.MapFrom(result);
         }
     }

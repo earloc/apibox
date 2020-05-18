@@ -8,7 +8,7 @@ namespace ApiBox.Api.GraphQLDotNet.GraphTypesFirst.Greeter
     {
         public GreeterQuery(IDependency<IGreeter> greeter)
         {
-            Field<GreetingOutput>("Greet",
+            Field<GreetingOutput>("SayHello",
                 arguments: new QueryArguments(
                     new QueryArgument<StringGraphType>() { Name = "name" }
                 ),
@@ -16,7 +16,7 @@ namespace ApiBox.Api.GraphQLDotNet.GraphTypesFirst.Greeter
                 resolve: context =>
                 {
                     var name = context.GetArgument<string>("name");
-                    return greeter.Instance.Greet(name);
+                    return greeter.Instance.SayHello(name);
                 }
             );
         }

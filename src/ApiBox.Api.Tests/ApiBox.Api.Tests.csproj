@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
+    <PackageReference Include="MathNet.Numerics" Version="4.9.1" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.0-preview-20200428-01" />
@@ -20,6 +21,14 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ApiBox.Api.GraphQLDotNet.GraphTypesFirst\ApiBox.Api.GraphQLDotNet.GraphTypesFirst.csproj" />
+    <ProjectReference Include="..\ApiBox.Api.gRPC\ApiBox.Api.gRPC.csproj" />
+    <ProjectReference Include="..\ApiBox.Api.OData\ApiBox.Api.OData.csproj" />
+    <ProjectReference Include="..\ApiBox.Api.WebApi\ApiBox.Api.WebApi.csproj" />
+    <ProjectReference Include="..\ApiBox.Microsoft.Extensions.DependencyInjection\ApiBox.Microsoft.Extensions.DependencyInjection.csproj" />
   </ItemGroup>
 
 </Project>

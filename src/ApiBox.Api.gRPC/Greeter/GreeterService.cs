@@ -2,9 +2,9 @@
 using Grpc.Core;
 using System.Threading.Tasks;
 
-namespace ApiBox.Api.gRPC.Greeter
+namespace ApiBox.Api.gRPC
 {
-    public class GreeterService : Greetings.GreetingsBase
+    public class GreeterService : Greeter.GreeterBase
     {
         private readonly IGreeter greeter;
 
@@ -13,9 +13,9 @@ namespace ApiBox.Api.gRPC.Greeter
             this.greeter = greeter;
         }
 
-        public override Task<GreetingReply> Greet(GreetingRequest request, ServerCallContext context)
+        public override Task<GreetingReply> SayHello(GreetingRequest request, ServerCallContext context)
         {
-            var greeting = greeter.Greet(request.Name);
+            var greeting = greeter.SayHello(request.Name);
             return Task.FromResult(GreetingReply.MapFrom(greeting));
         }
     }

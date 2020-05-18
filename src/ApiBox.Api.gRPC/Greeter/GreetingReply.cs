@@ -1,6 +1,6 @@
 ﻿using ApiBox.Greeter;
 
-namespace ApiBox.Api.gRPC.Greeter
+namespace ApiBox.Api.gRPC
 {
     public partial class GreetingReply
     {

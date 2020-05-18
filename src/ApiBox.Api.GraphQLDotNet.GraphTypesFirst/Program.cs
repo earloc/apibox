@@ -1,4 +1,4 @@
-namespace ApiBox.Api.GraphQLDotNet
+namespace ApiBox.Api.GraphQLDotNet.GraphTypesFirst
 {
     public class Program : ProgramBase<Startup>
     {

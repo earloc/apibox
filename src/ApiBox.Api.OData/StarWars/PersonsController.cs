@@ -8,23 +8,18 @@ using System.Threading.Tasks;
 namespace ApiBox.Api.OData.StarWars
 {
 
-    [Route("odata/persons")]
-    [ApiExplorerSettings(IgnoreApi = false)]
+    [ApiVersion("1.0")]
     public class PersonsController : ODataController
     {
-        [HttpGet]
-        [EnableQuery]
-        public async Task<IEnumerable<PersonEntity>> GetAll([FromServices]IStarWarsSource starWars)
+        public async Task<IEnumerable<PersonEntity>> Get([FromServices]IStarWarsSource starWars)
         {
             var query = await starWars.GetPersonsAsync();
             return PersonEntity.Map(query);
         }
 
-        [HttpGet("{id}")]
-
-        public async Task<PersonEntity?> GetSingle(string id, ODataQueryOptions<PersonEntity> query, [FromServices]IStarWarsSource starWars)
+        public async Task<PersonEntity?> Get(string key, ODataQueryOptions<PersonEntity> query, [FromServices]IStarWarsSource starWars)
         {
-            var result = await starWars.GetPersonSingleAsync(id);
+            var result = await starWars.GetPersonSingleAsync(key);
             return PersonEntity.Map(result);
         }
     }

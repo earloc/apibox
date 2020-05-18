@@ -11,7 +11,7 @@ namespace ApiBox.Api.WebApi.Greeter
         [HttpGet("{name}")]
         public ActionResult<IEnumerable<GreetingResponse>> GetSingle(string name, [FromServices] IGreeter greeter)
         {
-            var result = greeter.Greet(name);
+            var result = greeter.SayHello(name);
 
             return Ok(GreetingResponse.MapFrom(result));
         }

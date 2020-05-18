@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
@@ -19,7 +18,8 @@ namespace ApiBox.Api.WebApi
             {
                 swagger.SwaggerDoc("v1", new OpenApiInfo()
                 {
-                    Title = "ApiBox.Api.WebApi", Version = "v1"
+                    Title = "ApiBox.Api.WebApi",
+                    Version = "v1"
                 });
             });
         }
@@ -40,7 +40,8 @@ namespace ApiBox.Api.WebApi
             });
 
             app.UseSwagger();
-            app.UseSwaggerUI(swagger => {
+            app.UseSwaggerUI(swagger =>
+            {
                 swagger.SwaggerEndpoint("swagger/v1/swagger.json", "v1");
                 swagger.RoutePrefix = "";
             });

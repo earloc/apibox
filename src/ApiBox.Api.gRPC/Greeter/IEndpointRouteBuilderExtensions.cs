@@ -1,4 +1,4 @@
-﻿using ApiBox.Api.gRPC.Greeter;
+﻿using ApiBox.Api.gRPC;
 using Microsoft.AspNetCore.Builder;
 
 namespace Microsoft.AspNetCore.Routing

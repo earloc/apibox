@@ -7,11 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiBox", "ApiBox\ApiBox.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiBox.Api.OData", "ApiBox.Api.OData\ApiBox.Api.OData.csproj", "{719E5066-0402-4500-9E85-197BFBD67BBD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiBox.Api.WebApi", "ApiBox.Api.WebApi\ApiBox.Api.WebApi.csproj", "{425E384E-5458-406C-A2C7-9AC7355A165C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiBox.Api.WebApi", "ApiBox.Api.WebApi\ApiBox.Api.WebApi.csproj", "{425E384E-5458-406C-A2C7-9AC7355A165C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiBox.Api.gRPC", "ApiBox.Api.gRPC\ApiBox.Api.gRPC.csproj", "{6503442F-0EB0-420D-A3E7-DEC64D6E2744}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiBox.Api.gRPC", "ApiBox.Api.gRPC\ApiBox.Api.gRPC.csproj", "{6503442F-0EB0-420D-A3E7-DEC64D6E2744}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiBox.Api.GraphQLDotNet", "ApiBox.Api.GraphQLDotNet\ApiBox.Api.GraphQLDotNet.csproj", "{59D99B92-3CE9-44ED-9176-D389750B25DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiBox.Api.GraphQLDotNet", "ApiBox.Api.GraphQLDotNet\ApiBox.Api.GraphQLDotNet.csproj", "{59D99B92-3CE9-44ED-9176-D389750B25DA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiBox.Api.GraphQLDotNet.GraphTypesFirst", "ApiBox.Api.GraphQLDotNet.GraphTypesFirst\ApiBox.Api.GraphQLDotNet.GraphTypesFirst.csproj", "{D2B6B26A-7FB4-4FEF-ABA6-133B2FDC4C75}"
 EndProject
@@ -19,13 +19,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GraphQL", "GraphQL", "{6EAA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rest", "Rest", "{CC7E76EB-1515-4899-B92C-F6E4D9992026}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiBox.Api", "ApiBox.Api\ApiBox.Api.csproj", "{9EB33B8C-3A60-4855-ADC0-8A602C46C2E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiBox.Api", "ApiBox.Api\ApiBox.Api.csproj", "{9EB33B8C-3A60-4855-ADC0-8A602C46C2E5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiBox.Api.Tests", "ApiBox.Api.Tests\ApiBox.Api.Tests.csproj", "{44113E17-6F79-4041-B417-2C91D1E43D22}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RPC", "RPC", "{57D364A5-BDD2-4813-8DF1-E3E4AD785276}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiBox.Microsoft.Extensions.DependencyInjection", "ApiBox.Microsoft.Extensions.DependencyInjection\ApiBox.Microsoft.Extensions.DependencyInjection.csproj", "{BF3C9EF8-53CF-49DE-8CE6-8B799B7D121A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiBox.Microsoft.Extensions.DependencyInjection", "ApiBox.Microsoft.Extensions.DependencyInjection\ApiBox.Microsoft.Extensions.DependencyInjection.csproj", "{BF3C9EF8-53CF-49DE-8CE6-8B799B7D121A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
