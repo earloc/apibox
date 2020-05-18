@@ -24,6 +24,7 @@ namespace ApiBox.Api.Tests
         [InlineData(10000)]
         [InlineData(100000)]
         [Trait("ApiStack", "OData")]
+        [Trait("ClientStack", "HttpClient")]
         public async Task Measure_Greeter_SayHello_Sequential_OData(int numberOfsamples)
         {
             var sut = this.fixture.OData();
@@ -41,6 +42,7 @@ namespace ApiBox.Api.Tests
         [InlineData(10000)]
         [InlineData(100000)]
         [Trait("ApiStack", "WebApi")]
+        [Trait("ClientStack", "HttpClient")]
         public async Task Measure_Greeter_SayHello_Sequential_WebApi(int numberOfsamples)
         {
             var sut = this.fixture.WebApi();
@@ -58,6 +60,7 @@ namespace ApiBox.Api.Tests
         [InlineData(10000)]
         [InlineData(100000)]
         [Trait("ApiStack", "GraphQLDotNet.GraphTypesFirst")]
+        [Trait("ClientStack", "HttpClient")]
         public async Task Measure_Greeter_SayHello_Sequential_GraphQLDotNet_GraphTypesFirst(int numberOfsamples)
         {
             var payload = new GraphQlPayload()
@@ -88,6 +91,7 @@ namespace ApiBox.Api.Tests
         [InlineData(10000)]
         [InlineData(100000)]
         [Trait("ApiStack", "gRPC")]
+        [Trait("ClientStack", "HttpClient")]
         public async Task Measure_Greeter_SayHello_Sequential_GRPC(int numberOfsamples)
         {
             var sut = this.fixture.gRPC();
