@@ -42,16 +42,16 @@ namespace ApiBox.Api.Tests
             HttpClient = testClient;
         }
 
-        internal async Task<Func<Task>> HttpGet(string path)
+        public async Task<Func<Task>> HttpGet(string path)
         {
             var response = await HttpClient.GetAsync(path);
             return () => Task.FromResult(response.EnsureSuccessStatusCode());
         }
 
-        internal async Task<Func<Task>> GraphQLPost(string path, HttpContent content)
+        public async Task<(Func<Task> Assertion, HttpResponseMessage Response)> GraphQLPost(HttpContent content, string path = "graphql")
         {
-            var response = await HttpClient.PostAsync(path, content).ConfigureAwait(false);
-            return async () =>
+            var response = await HttpClient.PostAsync(path, content);
+            return (async () =>
             {
                 response.EnsureSuccessStatusCode();
                 var result = await response.Content.ReadAsStringAsync();
@@ -59,7 +59,7 @@ namespace ApiBox.Api.Tests
                 {
                     throw new Exception(result.ToString());
                 }
-            };
+            }, response);
         }
 
         private class ResponseVersionHandler : DelegatingHandler

@@ -78,7 +78,7 @@ namespace ApiBox.Api.Tests
 
             var sut = this.fixture.GraphQL();
 
-            TestAction act = () => sut.GraphQLPost("graphql", content);
+            TestAction act = async () => (await sut.GraphQLPost(content)).Assertion;
 
             var samples = await act.MeasureAsync(ApiStack.GQLnet_TypesFirst, numberOfsamples, Measure_Greeter_SayHello_Sequential);
 

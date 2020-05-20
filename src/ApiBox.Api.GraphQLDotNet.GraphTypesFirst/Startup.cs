@@ -34,9 +34,8 @@ namespace ApiBox.Api.GraphQLDotNet.GraphTypesFirst
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseRouting();
-
+            
             app.UseGraphQL<ISchema>();
             app.UseGraphQLPlayground(new GraphQL.Server.Ui.Playground.GraphQLPlaygroundOptions()
             {
