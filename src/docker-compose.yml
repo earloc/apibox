@@ -58,7 +58,7 @@ services:
       - "traefik.http.routers.odata.rule=Host(`odata.apibox.localtest.me`)"
 
   grpc:
-    container_name: "grpc.api.odata"
+    container_name: "apibox.api.grpc"
     image: ${DOCKER_REGISTRY-}apiboxapigrpc
     ports:
       - target: 8443            
@@ -71,4 +71,17 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.grpc.rule=Host(`grpc.apibox.localtest.me`)"
       - "traefik.http.services.grpc.loadbalancer.server.scheme=h2c"
+
+
+  gqlnet_gtf:
+    container_name: "apibox.api.gqlnet_gtf"
+    image: ${DOCKER_REGISTRY-}apiboxapigraphqldotnetgraphtypesfirst
+    build:
+      context: .
+      dockerfile: ApiBox.Api.GraphQLDotNet.GraphTypesFirst/Dockerfile
+    networks:
+      - main
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.gqlnet_gtf.rule=Host(`gqlnet_gtf.apibox.localtest.me`)"
 
