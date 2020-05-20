@@ -22,7 +22,7 @@ namespace ApiBox.Api
             {
                 Log.Information("Starting host");
 
-                BootstrapWith<TStartup>(args)
+                Configure(args)
                     .UseSerilog()
                     .Build()
                     .Run();
@@ -39,11 +39,17 @@ namespace ApiBox.Api
                 Log.CloseAndFlush();
             }
         }
-        protected virtual IWebHostBuilder BootstrapWith<TStartup>(string[] args) where TStartup : class
-        {
-            return WebHost.CreateDefaultBuilder(args)
-                    .UseStartup<TStartup>();
 
+        protected virtual IWebHostBuilder Configure(string[] args)
+        {
+            var builder = WebHost.CreateDefaultBuilder(args);
+            builder.UseStartup<TStartup>();
+            Configure(builder);
+            return builder;
+        }
+
+        protected virtual void Configure(IWebHostBuilder builder)
+        {
         }
     }
 }

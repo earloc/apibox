@@ -14,6 +14,7 @@ namespace ApiBox.Api.gRPC
         {
             services.AddApiBox();
             services.AddGrpc();
+            services.AddGrpcReflection();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -29,6 +30,8 @@ namespace ApiBox.Api.gRPC
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGreeterGRPCService();
+                endpoints.MapGrpcReflectionService();
+                
             });
         }
     }
