@@ -9,7 +9,6 @@ WORKDIR /src
 COPY ["ApiBox.Api.GraphQLDotNet.GraphTypesFirst/ApiBox.Api.GraphQLDotNet.GraphTypesFirst.csproj", "ApiBox.Api.GraphQLDotNet.GraphTypesFirst/"]
 COPY ["ApiBox/ApiBox.csproj", "ApiBox/"]
 COPY ["ApiBox.Api.GraphQLDotNet/ApiBox.Api.GraphQLDotNet.csproj", "ApiBox.Api.GraphQLDotNet/"]
-COPY ["ApiBox.Microsoft.Extensions.DependencyInjection/ApiBox.Microsoft.Extensions.DependencyInjection.csproj", "ApiBox.Microsoft.Extensions.DependencyInjection/"]
 COPY ["ApiBox.Api/ApiBox.Api.csproj", "ApiBox.Api/"]
 RUN dotnet restore "ApiBox.Api.GraphQLDotNet.GraphTypesFirst/ApiBox.Api.GraphQLDotNet.GraphTypesFirst.csproj"
 COPY . .

@@ -8,7 +8,6 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["ApiBox.Api.OData/ApiBox.Api.OData.csproj", "ApiBox.Api.OData/"]
 COPY ["ApiBox/ApiBox.csproj", "ApiBox/"]
-COPY ["ApiBox.Microsoft.Extensions.DependencyInjection/ApiBox.Microsoft.Extensions.DependencyInjection.csproj", "ApiBox.Microsoft.Extensions.DependencyInjection/"]
 COPY ["ApiBox.Api/ApiBox.Api.csproj", "ApiBox.Api/"]
 RUN dotnet restore "ApiBox.Api.OData/ApiBox.Api.OData.csproj"
 COPY . .
