@@ -27,24 +27,29 @@ namespace ApiBox.Api.WebApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
 
-            app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
+            app.Map("/apibox/webapi", _ =>
             {
-                endpoints.MapControllers();
+                if (env.IsDevelopment())
+                {
+                    _.UseDeveloperExceptionPage();
+                }
+
+                _.UseRouting();
+
+                _.UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllers();
+                });
+
+                _.UseSwagger();
+                _.UseSwaggerUI(swagger =>
+                {
+                    swagger.SwaggerEndpoint("swagger/v1/swagger.json", "v1");
+                    swagger.RoutePrefix = "";
+                });
             });
-
-            app.UseSwagger();
-            app.UseSwaggerUI(swagger =>
-            {
-                swagger.SwaggerEndpoint("swagger/v1/swagger.json", "v1");
-                swagger.RoutePrefix = "";
-            });
+            
         }
     }
 }

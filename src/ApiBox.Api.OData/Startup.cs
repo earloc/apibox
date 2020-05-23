@@ -51,29 +51,32 @@ namespace ApiBox.Api.OData
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, VersionedODataModelBuilder modelBuilder, IApiVersionDescriptionProvider provider)
         {
-            if (env.IsDevelopment())
+            app.Map("/apibox/odata", _ =>
             {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.UseRouting();
-
-            app.UseMvc(routes =>
-            {
-                routes.MapVersionedODataRoutes("odata", "odata", modelBuilder.GetEdmModels());
-            });
-
-            app.UseSwagger();
-            app.UseSwaggerUI(
-                swagger =>
+                if (env.IsDevelopment())
                 {
-                    // build a swagger endpoint for each discovered API version
-                    foreach (var description in provider.ApiVersionDescriptions)
-                    {
-                        swagger.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
-                    }
-                    swagger.RoutePrefix = "";
+                    _.UseDeveloperExceptionPage();
+                }
+
+                _.UseRouting();
+
+                _.UseMvc(routes =>
+                {
+                    routes.MapVersionedODataRoutes("odata", "odata", modelBuilder.GetEdmModels());
                 });
+
+                _.UseSwagger();
+                _.UseSwaggerUI(
+                    swagger =>
+                    {
+                        // build a swagger endpoint for each discovered API version
+                        foreach (var description in provider.ApiVersionDescriptions)
+                        {
+                            swagger.SwaggerEndpoint($"swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+                        }
+                        swagger.RoutePrefix = "";
+                    });
+            });
         }
 
         private static void SetOutputFormatters(IServiceCollection services)

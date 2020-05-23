@@ -20,18 +20,21 @@ namespace ApiBox.Api.gRPC
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            app.Map("/apibox/grpc", _ =>
             {
-                app.UseDeveloperExceptionPage();
-            }
+                if (env.IsDevelopment())
+                {
+                    _.UseDeveloperExceptionPage();
+                }
 
-            app.UseRouting();
+                _.UseRouting();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGreeterGRPCService();
-                endpoints.MapGrpcReflectionService();
-                
+                _.UseEndpoints(endpoints =>
+                {
+                    endpoints.MapGreeterGRPCService();
+                    endpoints.MapGrpcReflectionService();
+
+                });
             });
         }
     }

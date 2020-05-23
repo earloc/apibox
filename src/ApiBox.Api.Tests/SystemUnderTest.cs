@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -15,7 +16,7 @@ namespace ApiBox.Api.Tests
         private readonly IHost host;
         private readonly TestServer server;
 
-        public SystemUnderTest(Action<IWebHostBuilder> configure = null)
+        public SystemUnderTest(PathString basePath, Action<IWebHostBuilder> configure = null)
         {
             var builder = new HostBuilder()
                 .ConfigureWebHostDefaults(webHost =>
@@ -37,7 +38,7 @@ namespace ApiBox.Api.Tests
             responseVersionHandler.InnerHandler = server.CreateHandler();
 
             var testClient = new HttpClient(responseVersionHandler);
-            testClient.BaseAddress = new Uri("http://localhost");
+            testClient.BaseAddress = new Uri($"http://localhost{basePath}");
 
             HttpClient = testClient;
         }
