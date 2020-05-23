@@ -51,31 +51,27 @@ namespace ApiBox.Api.OData
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, VersionedODataModelBuilder modelBuilder, IApiVersionDescriptionProvider provider)
         {
-            app.Map("/apibox/odata", _ =>
+            if (env.IsDevelopment())
             {
-                if (env.IsDevelopment())
-                {
-                    _.UseDeveloperExceptionPage();
-                }
+                app.UseDeveloperExceptionPage();
+            }
 
-                _.UseRouting();
+            app.UseRouting();
 
-                _.UseMvc(routes =>
+            app.UseMvc(routes =>
                 {
                     routes.MapVersionedODataRoutes("odata", "odata", modelBuilder.GetEdmModels());
                 });
 
-                _.UseSwagger();
-                _.UseSwaggerUI(
-                    swagger =>
-                    {
-                        // build a swagger endpoint for each discovered API version
-                        foreach (var description in provider.ApiVersionDescriptions)
-                        {
-                            swagger.SwaggerEndpoint($"swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
-                        }
-                        swagger.RoutePrefix = "";
-                    });
+            app.UseSwagger();
+            app.UseSwaggerUI(swagger =>
+            {
+                // build a swagger endpoint for each discovered API version
+                foreach (var description in provider.ApiVersionDescriptions)
+                {
+                    swagger.SwaggerEndpoint($"swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+                }
+                swagger.RoutePrefix = "";
             });
         }
 

@@ -16,7 +16,7 @@ namespace ApiBox.Api.Tests
         private readonly IHost host;
         private readonly TestServer server;
 
-        public SystemUnderTest(PathString basePath, Action<IWebHostBuilder> configure = null)
+        public SystemUnderTest(Action<IWebHostBuilder> configure = null)
         {
             var builder = new HostBuilder()
                 .ConfigureWebHostDefaults(webHost =>
@@ -38,7 +38,7 @@ namespace ApiBox.Api.Tests
             responseVersionHandler.InnerHandler = server.CreateHandler();
 
             var testClient = new HttpClient(responseVersionHandler);
-            testClient.BaseAddress = new Uri($"http://localhost{basePath}");
+            testClient.BaseAddress = new Uri($"http://localhost");
 
             HttpClient = testClient;
         }

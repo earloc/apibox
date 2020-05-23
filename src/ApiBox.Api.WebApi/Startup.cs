@@ -28,28 +28,25 @@ namespace ApiBox.Api.WebApi
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
-            app.Map("/apibox/webapi", _ =>
+            if (env.IsDevelopment())
             {
-                if (env.IsDevelopment())
-                {
-                    _.UseDeveloperExceptionPage();
-                }
+                app.UseDeveloperExceptionPage();
+            }
 
-                _.UseRouting();
+            app.UseRouting();
 
-                _.UseEndpoints(endpoints =>
-                {
-                    endpoints.MapControllers();
-                });
-
-                _.UseSwagger();
-                _.UseSwaggerUI(swagger =>
-                {
-                    swagger.SwaggerEndpoint("swagger/v1/swagger.json", "v1");
-                    swagger.RoutePrefix = "";
-                });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
             });
-            
+
+            app.UseSwagger();
+            app.UseSwaggerUI(swagger =>
+            {
+                swagger.SwaggerEndpoint("swagger/v1/swagger.json", "v1");
+                swagger.RoutePrefix = "";
+            });
+
         }
     }
 }

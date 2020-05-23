@@ -32,7 +32,7 @@ namespace Try
 
             var client = new HttpClient()
             {
-                BaseAddress = new Uri("https://localhost:5540")
+                BaseAddress = new Uri("http://localhost:8003")
             };
 
             var response = await client.PostAsync("/graphql", content);

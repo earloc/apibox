@@ -30,20 +30,16 @@ namespace ApiBox.Api.GraphQLDotNet.GraphTypesFirst
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.Map("/apibox/gqlnet_gtf", _ =>
+            if (env.IsDevelopment())
             {
-                if (env.IsDevelopment())
-                {
-                    _.UseDeveloperExceptionPage();
-                }
-                _.UseRouting();
+                app.UseDeveloperExceptionPage();
+            }
+            app.UseRouting();
 
-                _.UseGraphQL<ISchema>();
-                _.UseGraphQLPlayground(new GraphQL.Server.Ui.Playground.GraphQLPlaygroundOptions()
-                {
-                    Path = "",
-                    GraphQLEndPoint = "/apibox/gqlnet_gtf/graphql"
-                });
+            app.UseGraphQL<ISchema>();
+            app.UseGraphQLPlayground(new GraphQL.Server.Ui.Playground.GraphQLPlaygroundOptions()
+            {
+                Path = ""
             });
         }
     }
