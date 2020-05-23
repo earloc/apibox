@@ -28,7 +28,6 @@
     <ProjectReference Include="..\ApiBox.Api.gRPC\ApiBox.Api.gRPC.csproj" />
     <ProjectReference Include="..\ApiBox.Api.OData\ApiBox.Api.OData.csproj" />
     <ProjectReference Include="..\ApiBox.Api.WebApi\ApiBox.Api.WebApi.csproj" />
-    <ProjectReference Include="..\ApiBox.Microsoft.Extensions.DependencyInjection\ApiBox.Microsoft.Extensions.DependencyInjection.csproj" />
   </ItemGroup>
 
 </Project>
