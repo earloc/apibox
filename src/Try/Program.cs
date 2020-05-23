@@ -13,7 +13,7 @@ namespace Try
     static class Program
     {
         static async Task Main(
-            string? region = null,
+            string region = null,
             string[]? args = null)
         {
 
@@ -22,16 +22,17 @@ namespace Try
                 query = GetQuery()
             };
 
+            //Console.WriteLine(query.query);
+
             var content = new StringContent(query.ToJson(), Encoding.Default, "application/json");
 
             //var (_, response) = await graph.GraphQLPost(content);
 
             //var result = await response.Content.ReadAsStringAsync();
 
-
             var client = new HttpClient()
             {
-                BaseAddress = new Uri("http://localhost:5000")
+                BaseAddress = new Uri("https://localhost:5540")
             };
 
             var response = await client.PostAsync("/graphql", content);
@@ -44,6 +45,7 @@ namespace Try
         {
             return
             #region gql
+
 @"query {
     greeter {
         sayHello(name: ""greetling""){
@@ -54,7 +56,7 @@ namespace Try
             #endregion
             ;
 
-            
+
         }
 
     }
