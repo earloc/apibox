@@ -14,11 +14,13 @@ namespace Try.Greeter
     {
         private readonly IGreeterSamples graphQL;
         private readonly IGreeterSamples webApi;
+        private readonly IGreeterSamples oData;
 
-        public GreeterSampleProvider(GraphQLGreeterSamples graphQL, WebApiGreeterSamples webApi)
+        public GreeterSampleProvider(GraphQLGreeterSamples graphQL, WebApiGreeterSamples webApi, ODataGreeterSamples oData)
         {
             this.graphQL = graphQL ?? throw new ArgumentNullException(nameof(graphQL));
             this.webApi = webApi ?? throw new ArgumentNullException(nameof(webApi));
+            this.oData = oData ?? throw new ArgumentNullException(nameof(oData));
         }
 
 
@@ -28,6 +30,7 @@ namespace Try.Greeter
             {
                 "GraphQL" => this.graphQL,
                 "WebApi" => this.webApi,
+                "OData" => this.oData,
                 _ => null
             };
 

@@ -40,6 +40,10 @@ namespace Try
                 client.BaseAddress = new Uri("http://localhost:8001");
             });
 
+            services.AddHttpClient("OData", client => {
+                client.BaseAddress = new Uri("http://localhost:8002");
+            });
+
             services.AddHttpClient("GraphQL", client => {
                 client.BaseAddress = new Uri("http://localhost:8003");
             });
