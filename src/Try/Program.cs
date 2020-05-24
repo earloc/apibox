@@ -3,10 +3,13 @@ using ApiBox.Api.Tests;
 
 using GraphTypesFirstStartup = ApiBox.Api.GraphQLDotNet.GraphTypesFirst.Startup;
 */
+using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Try.Greeter;
 
 namespace Try
 {
@@ -17,47 +20,44 @@ namespace Try
             string[]? args = null)
         {
 
-            var query = new GraphQlPayload()
+            var parts = region.Split("_", StringSplitOptions.RemoveEmptyEntries);
+
+            var topic = parts.First();
+            var sample = parts.Skip(1).First();
+            var stack = parts.Skip(2).First();
+
+            var services = new ServiceCollection();
+
+            services.Scan(_ => 
             {
-                query = GetQuery()
+                _.FromEntryAssembly()
+                    .AddClasses()
+                    .AsSelf()
+                    .WithLifetime(ServiceLifetime.Scoped);
+            });
+
+            services.AddHttpClient("GraphQL", client => {
+                client.BaseAddress = new Uri("http://localhost:8003");
+            });
+
+            var provider = services.BuildServiceProvider();
+
+            using var scope = provider.CreateScope();
+
+            ISampleProvider sampleProvider = topic switch
+            {
+                "Greeter" => scope.ServiceProvider.GetRequiredService<GreeterSampleProvider>(),
+                _ => new NullSample()
             };
 
-            //Console.WriteLine(query.query);
+            var sampleAction = sampleProvider.Select(stack, sample);
 
-            var content = new StringContent(query.ToJson(), Encoding.Default, "application/json");
-
-            //var (_, response) = await graph.GraphQLPost(content);
-
-            //var result = await response.Content.ReadAsStringAsync();
-
-            var client = new HttpClient()
-            {
-                BaseAddress = new Uri("http://localhost:8003")
-            };
-
-            var response = await client.PostAsync("/graphql", content);
-
-            Console.WriteLine(await response.Content.ReadAsStringAsync());
-        }
-
-
-        static string GetQuery()
-        {
-            return
-            #region gql
-
-@"query {
-    greeter {
-        sayHello(name: ""greetling""){
-            content
-        }
-    }
-}"
-            #endregion
-            ;
-
+            await sampleAction();
 
         }
+
+
+        
 
     }
 }

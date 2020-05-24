@@ -1,3 +1,5 @@
 
-```csharp --source-file ./src/Try/Program.cs --project ./src/Try/Try.csproj
+#GraphQL
+
+```csharp --project ./src/Try/Try.csproj --source-file ./src/Try/Greeter/GraphQLGreeterSamples.cs --region Greeter_SayHello_GraphQL_Query
 ```
