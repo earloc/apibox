@@ -36,9 +36,14 @@ namespace Try
                     .WithLifetime(ServiceLifetime.Scoped);
             });
 
+            services.AddHttpClient("WebApi", client => {
+                client.BaseAddress = new Uri("http://localhost:8001");
+            });
+
             services.AddHttpClient("GraphQL", client => {
                 client.BaseAddress = new Uri("http://localhost:8003");
             });
+
 
             var provider = services.BuildServiceProvider();
 

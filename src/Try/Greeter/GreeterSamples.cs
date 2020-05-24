@@ -12,11 +12,13 @@ namespace Try.Greeter
 
     public class GreeterSampleProvider : ISampleProvider
     {
-        private readonly GraphQLGreeterSamples graphQL;
+        private readonly IGreeterSamples graphQL;
+        private readonly IGreeterSamples webApi;
 
-        public GreeterSampleProvider(GraphQLGreeterSamples graphQL)
+        public GreeterSampleProvider(GraphQLGreeterSamples graphQL, WebApiGreeterSamples webApi)
         {
             this.graphQL = graphQL ?? throw new ArgumentNullException(nameof(graphQL));
+            this.webApi = webApi ?? throw new ArgumentNullException(nameof(webApi));
         }
 
 
@@ -25,6 +27,7 @@ namespace Try.Greeter
             var samples = stack switch
             {
                 "GraphQL" => this.graphQL,
+                "WebApi" => this.webApi,
                 _ => null
             };
 
