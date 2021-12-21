@@ -1,4 +1,5 @@
 using GraphQL.Server;
+using GraphQL.Server.Ui.Playground;
 using GraphQL.Types;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -38,10 +39,7 @@ namespace ApiBox.Api.GraphQLDotNet.GraphTypesFirst
             app.UseRouting();
 
             app.UseGraphQL<ISchema>();
-            app.UseGraphQLPlayground(new GraphQL.Server.Ui.Playground.GraphQLPlaygroundOptions()
-            {
-                Path = ""
-            });
+            app.UseGraphQLPlayground();
         }
     }
 }

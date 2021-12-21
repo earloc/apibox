@@ -6,7 +6,7 @@ namespace ApiBox.Api.OData.PingPong
 {
     public class StarWarsModelConfiguration : IModelConfiguration
     {
-        public void Apply(ODataModelBuilder builder, ApiVersion apiVersion)
+        public void Apply(ODataModelBuilder builder, ApiVersion apiVersion, string? routePrefix)
         {
             builder.EntitySet<PersonEntity>("Persons").EntityType
              .HasKey(_ => _.Id)
