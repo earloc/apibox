@@ -60,7 +60,7 @@ namespace ApiBox.Api.OData
 
             app.UseMvc(routes =>
             {
-                routes.MapVersionedODataRoutes("odata", "odata", modelBuilder.GetEdmModels());
+                routes.MapVersionedODataRoute("odata", "odata", modelBuilder.GetEdmModels());
             });
 
             app.UseSwagger();

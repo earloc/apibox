@@ -7,7 +7,7 @@ namespace ApiBox.Api.OData.PingPong
 
     public class PingPongModelConfiguration : IModelConfiguration
     {
-        public void Apply(ODataModelBuilder builder, ApiVersion apiVersion)
+        public void Apply(ODataModelBuilder builder, ApiVersion apiVersion, string? routePrefix)
         {
             builder.EntitySet<Pong>("Pongs").EntityType
                .HasKey(_ => _.Id)
