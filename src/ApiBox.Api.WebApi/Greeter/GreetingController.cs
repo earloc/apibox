@@ -9,7 +9,7 @@ namespace ApiBox.Api.WebApi.Greeter
     public class GreetingController : ControllerBase
     {
         [HttpGet("{name}")]
-        public ActionResult<IEnumerable<GreetingResponse>> GetSingle(string name, [FromServices] IGreeter greeter)
+        public ActionResult<GreetingResponse> GetSingle(string name, [FromServices] IGreeter greeter)
         {
             var result = greeter.SayHello(name);
 

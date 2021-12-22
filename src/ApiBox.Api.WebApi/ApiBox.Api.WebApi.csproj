@@ -6,10 +6,25 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <Nullable>enable</Nullable>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+	  <TypeScriptToolsVersion>latest</TypeScriptToolsVersion>
   </PropertyGroup>
 
+  <ItemGroup>
+    <OpenApiReference Include="OpenAPIs\swagger.json" Namespace="" CodeGenerator="NSwagTypescript" ClassName="WebApiClient" OutputPath="../../AngularUI/src/app/services/WebApiClient.ts" >
+      <SourceUri>https://localhost:5001/swagger/v1/swagger.json</SourceUri>
+    </OpenApiReference>
+  </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.ApiDescription.Client" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="NSwag.ApiDescription.Client" Version="13.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
   
